@@ -1,0 +1,75 @@
+#!/bin/sh
+#------------------------------------------------------------------------------
+# =========                 |
+# \\      /  F ield         | Unsupported Contributions for OpenFOAM 
+#  \\    /   O peration     |
+#   \\  /    A nd           | Copyright (C) 2011-2014 OpenFOAM Foundation 
+#    \\/     M anipulation  |
+#------------------------------------------------------------------------------
+#2014-03-01 Bruno Santos (wyldckat@github): Updated code and comments.
+#------------------------------------------------------------------------------
+# License
+#     This file is a derivative work of OpenFOAM. 
+#
+#     OpenFOAM is free software: you can redistribute it and/or modify it
+#     under the terms of the GNU General Public License as published by
+#     the Free Software Foundation, either version 3 of the License, or
+#     (at your option) any later version.
+#
+#     OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+#     ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#     FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#     for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Script
+#     getBoost
+#
+# Description
+#     Get Boost only.
+#
+#------------------------------------------------------------------------------
+boostPACKAGE=boost_1_54_0
+
+#------------------------------------------------------------------------------
+# run from third-party directory only
+wmakeCheckPwd "$WM_THIRD_PARTY_DIR" || {
+    echo "Error: Current directory is not \$WM_THIRD_PARTY_DIR"
+    echo "    The environment variables are inconsistent with the installation."
+    echo "    Check the OpenFOAM entries in your dot-files and source them."
+    exit 1
+}
+. etc/tools/ThirdPartyFunctions
+#------------------------------------------------------------------------------
+
+
+getFile() {
+  packageDir=$1
+  tarFile=$2
+  url=$3
+
+  if [ ! -d ${packageDir} ]
+  then
+      downloadFile $tarFile $url
+
+      if [ -e download/$tarFile ]
+      then
+          echo "unpack download/$tarFile"
+          tar -xf download/$tarFile
+      else
+          echo "no download/$tarFile to unpack"
+      fi
+  fi
+}
+
+boostFile=$boostPACKAGE.tar.bz2
+
+boostVersion=`echo $boostPACKAGE | sed -e 's=boost_==' -e 's=_=\.=g'`
+
+boostUrl="http://sourceforge.net/projects/boost/files/boost/$boostVersion/$boostFile/download"
+
+getFile ${boostPACKAGE} ${boostFile} ${boostUrl}
+
+# ----------------------------------------------------------------- end-of-file
