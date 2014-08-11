@@ -117,10 +117,10 @@ mpfrFile=$mpfrPACKAGE.tar.bz2
 mpcFile=$mpcPACKAGE.tar.gz
 gccFile=$gccPACKAGE.tar.bz2
 
-gmpUrl="ftp://ftp.gnu.org/gnu/gmp/$gmpFile"
-mpfrUrl="http://ftp.gnu.org/gnu/mpfr/$mpfrFile"
+gmpUrl="http://ftpmirror.gnu.org/gmp/$gmpFile"
+mpfrUrl="http://ftpmirror.gnu.org/mpfr/$mpfrFile"
 mpcUrl="http://www.multiprecision.org/mpc/download/$mpcFile"
-gccUrl="http://www.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/$gccPACKAGE/$gccFile"
+gccUrl="http://ftpmirror.gnu.org/gcc/$gccPACKAGE/$gccFile"
 
 getFile ${gmpPACKAGE} ${gmpFile} ${gmpUrl}
 getFile ${mpfrPACKAGE} ${mpfrFile} ${mpfrUrl}
