@@ -7,7 +7,7 @@ It mostly serves as an auxiliary to the instructions pages provided here: http:/
 
 Most of these scripts have been collected from this bug report: http://www.openfoam.org/mantisbt/view.php?id=220
 
-This [git repository](https://github.com/wyldckat/scripts4OpenFOAM3rdParty/) was brought to you by Bruno Santos (wyldckat@github working at [blueCAPE Lda](www.bluecape.com.pt)).
+This [git repository](https://github.com/wyldckat/scripts4OpenFOAM3rdParty/) was brought to you by Bruno Santos (wyldckat@github working at [blueCAPE Lda](http://www.bluecape.com.pt)).
 
 
 License
