@@ -127,6 +127,7 @@ else
         -confirm-license \
         -nomake examples \
         -no-use-gold-linker \
+        -no-evdev \
     && time make -j $WM_NCOMPPROCS \
     && make install \
     && echo "Built: Qt-$qtVERSION" \
