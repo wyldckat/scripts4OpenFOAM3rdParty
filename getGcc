@@ -6,7 +6,8 @@
 #   \\  /    A nd           | Copyright (C) 2011-2013 OpenFOAM Foundation 
 #    \\/     M anipulation  |
 #------------------------------------------------------------------------------
-#2013-10-26 Bruno Santos (wyldckat@github): Updated code and comments.
+# 2013-10-26 Bruno Santos (wyldckat@github): Updated code and comments.
+# 2024-09-03 Bruno Santos (FS Dynamics Portugal): Updated for modern Gcc stacks.
 #------------------------------------------------------------------------------
 # License
 #     This file is a derivative work of OpenFOAM. 
@@ -35,6 +36,7 @@ gmpPACKAGE=gmp-5.0.1
 mpfrPACKAGE=mpfr-2.4.2
 mpcPACKAGE=mpc-0.8.1
 gccPACKAGE=gcc-4.5.1
+gccTarExt=bz2
 
 #------------------------------------------------------------------------------
 # run from third-party directory only
@@ -102,8 +104,14 @@ do
         mpcPACKAGE="${1%%/}"
         shift
         ;;
-    gcc-[4-9]*)
+    gcc-[4-6]*)
         gccPACKAGE="${1%%/}"
+        gccTarExt=bz2
+        shift
+        ;;
+    gcc-[7-9]*|gcc-1[0-9]*)
+        gccPACKAGE="${1%%/}"
+        gccTarExt=xz
         shift
         ;;
     *)
@@ -115,12 +123,15 @@ done
 gmpFile=$gmpPACKAGE.tar.bz2
 mpfrFile=$mpfrPACKAGE.tar.bz2
 mpcFile=$mpcPACKAGE.tar.gz
-gccFile=$gccPACKAGE.tar.bz2
+gccFile=$gccPACKAGE.tar.$gccTarExt
 
-gmpUrl="http://ftpmirror.gnu.org/gmp/$gmpFile"
-mpfrUrl="http://ftpmirror.gnu.org/mpfr/$mpfrFile"
-mpcUrl="http://ftpmirror.gnu.org/mpc/$mpcFile"
-gccUrl="http://ftpmirror.gnu.org/gcc/$gccPACKAGE/$gccFile"
+MIRROR="http://ftpmirror.gnu.org"
+#MIRROR="http://mirrors.up.pt/pub/gnu"
+
+gmpUrl="${MIRROR}/gmp/$gmpFile"
+mpfrUrl="${MIRROR}/mpfr/$mpfrFile"
+mpcUrl="${MIRROR}/mpc/$mpcFile"
+gccUrl="${MIRROR}/gcc/$gccPACKAGE/$gccFile"
 
 getFile ${gmpPACKAGE} ${gmpFile} ${gmpUrl}
 getFile ${mpfrPACKAGE} ${mpfrFile} ${mpfrUrl}
